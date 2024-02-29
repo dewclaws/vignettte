@@ -1,0 +1,5 @@
+# Ignore build artifacts
+/target
+
+# Ignore docker container data (to slim out the repo, and to avoid security issues)
+.container-data/
