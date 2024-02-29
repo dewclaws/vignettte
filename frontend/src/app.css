@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply min-h-full;
+  }
+
+  html {
+    font-family: "Chivo Mono Variable", monospace;
+  }
+
+  body {
+    @apply bg-background dark:bg-background-dark text-foreground dark:text-foreground-dark;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
