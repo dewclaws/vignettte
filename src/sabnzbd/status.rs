@@ -22,3 +22,15 @@ impl SabnzbdClient {
         Ok(response.status)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::super::test_client::CLIENT;
+
+    #[tokio::test]
+    async fn test_get_status() {
+        let status = CLIENT.lock().unwrap().get_status().await;
+
+        assert!(status.is_ok(), "Failed to get status from sabnzbd. Is the container running?");
+    }
+}

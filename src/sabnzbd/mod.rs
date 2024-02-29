@@ -37,23 +37,22 @@ impl SabnzbdClient {
 }
 
 #[cfg(test)]
-mod tests {
+pub mod test_client {
     use ini::Ini;
     use once_cell::sync::Lazy;
     use std::{path::Path, sync::Mutex};
 
     use super::*;
 
-    static CLIENT: Lazy<Mutex<SabnzbdClient>> = Lazy::new(|| {
+    pub static CLIENT: Lazy<Mutex<SabnzbdClient>> = Lazy::new(|| {
         let api_key = {
-            let config =
-                match Ini::load_from_file(Path::new(".container-data/sabnzbd/sabnzbd.ini")) {
-                    Ok(config) => config,
-                    Err(_) => panic!(
-                        "sabnzbd.ini not found; `.container-data/` may not exist. Try `docker-compose up`."
-                    ),
-                };
-
+            let config = match Ini::load_from_file(Path::new(".container-data/sabnzbd/sabnzbd.ini")) {
+                Ok(config) => config,
+                Err(_) => panic!(
+                    "sabnzbd.ini not found; `.container-data/` may not exist. Try `docker-compose up`."
+                ),
+            };
+    
             config
                 .section(Some("misc"))
                 .unwrap()
@@ -61,14 +60,7 @@ mod tests {
                 .unwrap()
                 .to_owned()
         };
-
+    
         Mutex::new(SabnzbdClient::new("0.0.0.0", 10000, &api_key))
     });
-
-    #[tokio::test]
-    async fn test_get_status() {
-        let status = CLIENT.lock().unwrap().get_status().await;
-
-        assert!(status.is_ok(), "Failed to get status from sabnzbd. Is the container running?");
-    }
 }
