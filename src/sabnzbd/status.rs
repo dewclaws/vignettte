@@ -3,6 +3,7 @@ use serde::Deserialize;
 
 use super::SabnzbdClient;
 
+// Deserialization wrapper since sabnzbd returns a top-level "status" object
 #[derive(Deserialize)]
 struct Response {
     status: Status,
