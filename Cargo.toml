@@ -3,7 +3,7 @@ name = "vignettte"
 version = "0.1.0"
 edition = "2021"
 description = "A smarter media automator for bittorrent and usenet"
-license = "GPL-3.0"
+license = "MIT"
 exclude = ["/frontend"]
 
 [dependencies]
