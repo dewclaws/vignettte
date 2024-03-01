@@ -1,4 +1,4 @@
-pub mod status;
+mod resources;
 
 pub struct SabnzbdClient {
     host: String,
@@ -36,6 +36,7 @@ impl SabnzbdClient {
     }
 }
 
+// A client singleton for testing purposes
 #[cfg(test)]
 pub mod test_client {
     use ini::Ini;

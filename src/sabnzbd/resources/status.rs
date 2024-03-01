@@ -1,13 +1,8 @@
 use reqwest::Error;
 use serde::Deserialize;
 
-use super::SabnzbdClient;
-
-// Deserialization wrapper since sabnzbd returns a top-level "status" object
-#[derive(Deserialize)]
-struct Response {
-    status: Status,
-}
+use crate::sabnzbd::SabnzbdClient;
+use super::SabnzbdResponse;
 
 #[derive(Debug, Deserialize)]
 pub struct Status {
@@ -16,17 +11,17 @@ pub struct Status {
 }
 
 impl SabnzbdClient {
-    pub async fn get_status(&self) -> Result<Status, Error> {
+    pub async fn get_status(&self) -> Result<SabnzbdResponse<Status>, Error> {
         let url = self.build_url("status", vec![("skip_dashboard", "1")]);
-        let response: Response = self.client.get(&url).send().await?.json().await?;
+        let response: SabnzbdResponse<Status> = self.client.get(&url).send().await?.json().await?;
 
-        Ok(response.status)
+        Ok(response)
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::super::test_client::CLIENT;
+    use crate::sabnzbd::test_client::CLIENT;
 
     #[tokio::test]
     async fn test_get_status() {
