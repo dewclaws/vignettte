@@ -3,3 +3,10 @@
 
 # Ignore docker container data (to slim out the repo, and to avoid security issues)
 .container-data/
+
+# Avoid committing environment variables
+.env
+.env.*
+
+# Ignore .vscode
+.vscode/
