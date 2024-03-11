@@ -4,7 +4,7 @@ use std::io;
 
 use reqwest::Client;
 
-static API_KEY: &str = "619fef183328c4154553ec9f968ac7f6";
+static API_KEY: &str = "619fef183328c4154553ec9f968ac7f6"; // it's ok i promise
 static BASE_URL: &str = "https://api.themoviedb.org/3";
 
 pub struct TMDbClient {
