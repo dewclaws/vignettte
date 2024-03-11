@@ -2,7 +2,6 @@ use std::io;
 
 use actix_web::{get, post, web, Responder, Result};
 use serde::{Deserialize, Serialize};
-use sqlx::{Pool, Postgres};
 
 use crate::{
     data::{AppState, Movie},
@@ -10,9 +9,9 @@ use crate::{
 };
 
 #[get("/movies")]
-async fn movies_list_handler(db: web::Data<Pool<Postgres>>) -> Result<impl Responder> {
+async fn movies_list_handler(state: web::Data<AppState>) -> Result<impl Responder> {
     let movies = sqlx::query_as!(Movie, r#"SELECT * FROM movies"#)
-        .fetch_all(&**db)
+        .fetch_all(&state.db)
         .await
         .unwrap();
 
