@@ -1,15 +1,15 @@
 services:
-  sabnzbd:
-    image: lscr.io/linuxserver/sabnzbd
-    restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - .container-data/sabnzbd:/config
-    ports:
-      - 10000:8080
+  # sabnzbd:
+  #   image: lscr.io/linuxserver/sabnzbd
+  #   restart: unless-stopped
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Etc/UTC
+  #   volumes:
+  #     - .container-data/sabnzbd:/config
+  #   ports:
+  #     - 10000:8080
   db:
     image: postgres
     restart: unless-stopped
