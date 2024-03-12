@@ -21,7 +21,6 @@ async fn main() -> std::io::Result<()> {
         .await
         .expect("Failed to connect to database!");
 
-    // Start web server
     log::info!("Vignettte backend starting up at http://localhost:3030");
     HttpServer::new(move || {
         let cors = Cors::default()
