@@ -1,10 +1,11 @@
 import Shell from "@/components/shell";
 import type { Metadata } from "next";
-import { Inter, Martian_Mono } from "next/font/google";
+import { Fira_Sans, Martian_Mono } from "next/font/google";
 import "./globals.css";
 
-const body = Inter({
+const body = Fira_Sans({
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
   variable: "--font-body",
 })
@@ -27,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${body.variable} ${mono.variable} bg-white text-gray-900 dark:bg-black dark:text-white`}>
+      <body className={`${body.variable} ${mono.variable} bg-white text-neutral-900 dark:bg-black dark:text-white`}>
         <Shell>{children}</Shell>
       </body>
     </html>
