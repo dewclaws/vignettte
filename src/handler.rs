@@ -1,12 +1,24 @@
 use std::io;
 
 use actix_web::{get, post, web, Responder, Result};
+use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    data::{AppState, Movie},
-    external::tmdb::TMDbClient,
-};
+use crate::AppState;
+
+#[derive(sqlx::FromRow, Serialize, Deserialize, Debug)]
+pub struct Movie {
+    pub id: i32,
+    pub imdb_id: Option<String>,
+    pub tmdb_id: i32,
+    pub title: String,
+    pub original_language: String,
+    pub original_title: String,
+    pub synopsis: Option<String>,
+    pub release_date: NaiveDate,
+    pub poster_path: Option<String>,
+    pub backdrop_path: Option<String>,
+}
 
 #[get("/movies")]
 async fn movies_list_handler(state: web::Data<AppState>) -> Result<impl Responder> {
@@ -34,9 +46,7 @@ async fn movies_add_handler(
     body: web::Json<NewMovie>,
     data: web::Data<AppState>,
 ) -> Result<impl Responder> {
-    let client = TMDbClient::new();
-
-    match client.fetch_movie_details(body.tmdb_id).await {
+    match data.tmdb.fetch_movie_details(body.tmdb_id).await {
         Ok(response) => {
             let movie = sqlx::query_as!(
                 Movie,

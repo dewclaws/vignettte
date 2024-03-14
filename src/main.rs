@@ -1,4 +1,3 @@
-mod data;
 mod database;
 mod external;
 mod handler;
@@ -6,8 +5,14 @@ mod handler;
 use actix_cors::Cors;
 use actix_web::{http::header, middleware::Logger, web, App, HttpServer};
 use dotenvy::dotenv;
+use sqlx::PgPool;
 
-use crate::{data::AppState, external::tmdb::TMDbClient};
+use crate::external::tmdb::TMDbClient;
+
+struct AppState {
+    pub db: PgPool,
+    pub tmdb: TMDbClient,
+}
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
