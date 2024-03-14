@@ -10,8 +10,8 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-body)"],
-        mono: ["var(--font-mono)"]
-      }
+        mono: ["var(--font-mono)"],
+      },
     },
   },
   plugins: [],

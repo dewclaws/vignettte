@@ -1,5 +1,3 @@
 export default function Home() {
-  return (
-    <>Hello /settings!</>
-  );
+  return <>Hello /settings!</>;
 }

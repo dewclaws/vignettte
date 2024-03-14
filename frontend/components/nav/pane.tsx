@@ -26,5 +26,5 @@ export default function NavPane() {
         </footer>
       </div>
     </aside>
-  )
+  );
 }
