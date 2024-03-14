@@ -6,7 +6,7 @@ import { NavLink } from "./link";
 
 export default function NavPane() {
   return (
-    <aside className="hidden lg:block sticky top-0 h-screen overflow-y-auto border-e bg-neutral-100/40 dark:bg-neutral-800/40 dark:border-neutral-800">
+    <aside className="hidden lg:block sticky top-0 h-screen overflow-y-auto border-e bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800">
       <div className="flex h-full max-h-screen flex-col">
         <header className="flex items-center">
           <Link href="/" className="flex items-center px-5 py-4 gap-2">
