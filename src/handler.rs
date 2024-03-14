@@ -47,6 +47,8 @@ async fn movies_add_handler(
     data: web::Data<AppState>,
 ) -> Result<impl Responder> {
     match data.tmdb.fetch_movie_details(body.tmdb_id).await {
+        // Currently this only handles TMDb as a source
+        // Would like to refactor for more in future
         Ok(response) => {
             let movie = sqlx::query_as!(
                 Movie,
