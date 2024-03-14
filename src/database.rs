@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use dotenvy::var;
-use log::info;
+use log::{debug, info};
 use sqlx::{
     migrate::MigrateDatabase, postgres::PgPoolOptions, Connection, PgConnection, PgPool, Postgres,
 };
@@ -9,7 +9,8 @@ use sqlx::{
 pub async fn connect() -> Result<PgPool, sqlx::Error> {
     let conn_string = var("DATABASE_URL").expect("`DATABASE_URL` isn't set in environent!");
 
-    info!("Establishing database connection with: {}", conn_string);
+    info!("Establishing database connection...");
+    debug!("Database connection string: {}", conn_string);
 
     let db_pool = PgPoolOptions::new()
         .max_connections(20)
