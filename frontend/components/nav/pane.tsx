@@ -1,6 +1,8 @@
-import { BoltIcon, ClapperboardIcon, HomeIcon } from "lucide-react"
-import Link from "next/link"
-import { NavLink } from "./link"
+"use client";
+
+import { BoltIcon, ClapperboardIcon, HomeIcon } from "lucide-react";
+import Link from "next/link";
+import { NavLink } from "./link";
 
 export default function NavPane() {
   return (

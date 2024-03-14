@@ -1,5 +1,3 @@
-"use client"
-
 import { cc } from "@/lib/utilities"
 import { cva } from "class-variance-authority"
 import Link, { LinkProps } from "next/link"
