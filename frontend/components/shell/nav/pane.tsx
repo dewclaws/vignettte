@@ -20,7 +20,7 @@ export default function NavPane() {
           </NavLink>
         </nav>
         <footer className="grid itemc-center p-3">
-          <NavLink href="/settings" icon={<BoltIcon />}>
+          <NavLink href="/preferences" icon={<BoltIcon />}>
             Preferences
           </NavLink>
         </footer>
