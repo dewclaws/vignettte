@@ -1,3 +1,5 @@
+import ShellHeader from "@/components/shell/header";
+
 export default function Home() {
-  return <>Hello world!</>;
+  return <ShellHeader>Media</ShellHeader>;
 }

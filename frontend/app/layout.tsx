@@ -1,4 +1,4 @@
-import NavPane from "@/components/nav/pane";
+import NavPane from "@/components/shell/nav/pane";
 import { cc } from "@/lib/utilities";
 import type { Metadata } from "next";
 import { Fira_Sans, Martian_Mono } from "next/font/google";
