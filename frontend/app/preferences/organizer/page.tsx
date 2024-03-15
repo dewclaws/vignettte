@@ -1,10 +1,5 @@
-import { Separator } from "@/components/ui/separator";
+import { OrganizerSettingsForm } from "@/app/forms/organizer-settings";
 
 export default function OrganizerSettings() {
-  return (
-    <>
-      <h1 className="font-bold text-2xl">Output</h1>
-      <Separator className="my-2" />
-    </>
-  );
+  return <OrganizerSettingsForm />;
 }

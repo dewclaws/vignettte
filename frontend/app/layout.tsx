@@ -1,4 +1,5 @@
 import NavPane from "@/components/shell/nav/pane";
+import { Toaster } from "@/components/ui/toaster";
 import { cc } from "@/lib/utilities";
 import type { Metadata } from "next";
 import { Fira_Sans, Martian_Mono } from "next/font/google";
@@ -39,6 +40,7 @@ export default function RootLayout({
         <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[300px_1fr]">
           <NavPane />
           <main className="flex flex-col">{children}</main>
+          <Toaster />
         </div>
       </body>
     </html>
