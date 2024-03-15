@@ -33,7 +33,7 @@ export default function RootLayout({
         className={cc(
           body.variable,
           mono.variable,
-          "bg-white text-neutral-900 dark:bg-black dark:text-white",
+          "text-foreground bg-background",
         )}
       >
         <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[300px_1fr]">

@@ -6,12 +6,15 @@ import { NavLink } from "./link";
 
 export default function NavPane() {
   return (
-    <aside className="hidden lg:block sticky top-0 h-screen overflow-y-auto border-e bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800">
+    <aside className="hidden lg:block sticky top-0 h-screen overflow-y-auto border-e border-border bg-card">
       <div className="flex h-full max-h-screen flex-col">
         <header className="flex items-center">
-          <Link href="/" className="flex items-center px-5 py-4 gap-2">
+          <Link
+            href="/"
+            className="flex items-center px-5 py-4 gap-3 text-primary"
+          >
             <ClapperboardIcon className="w-8 h-8" />
-            <span className="italic tracking-widest">vignettte</span>
+            <span className="font-black tracking-wide">vignettte</span>
           </Link>
         </header>
         <nav className="flex-1 overflow-auto grid items-start px-3 py-1">

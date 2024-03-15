@@ -5,13 +5,12 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 const navLinkVariants = cva(
-  "flex items-center gap-3 rounded-lg px-3 py-2 transition-all font-medium hover:text-neutral-700 dark:hover:text-neutral-300",
+  "flex items-center gap-3 rounded-lg px-3 py-2 transition-all font-medium hover:text-muted-foreground",
   {
     variants: {
       variant: {
         default: "",
-        active:
-          "bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300",
+        active: "bg-muted text-muted-foreground",
       },
     },
     defaultVariants: {
