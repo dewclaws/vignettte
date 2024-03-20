@@ -1,8 +1,8 @@
 import NavPane from "@/components/shell/nav/pane";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/toast";
 import { cc } from "@/lib/utilities";
 import type { Metadata } from "next";
-import { Fira_Sans, Martian_Mono } from "next/font/google";
+import { Fira_Code, Fira_Sans } from "next/font/google";
 import "./globals.css";
 
 const body = Fira_Sans({
@@ -12,7 +12,7 @@ const body = Fira_Sans({
   variable: "--font-body",
 });
 
-const mono = Martian_Mono({
+const mono = Fira_Code({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-mono",

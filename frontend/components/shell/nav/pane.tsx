@@ -11,13 +11,13 @@ export default function NavPane() {
         <header className="flex items-center">
           <Link
             href="/"
-            className="flex items-center px-5 py-4 gap-3 text-primary"
+            className="flex items-center w-full rounded-b-md px-5 py-3 gap-3 bg-primary text-white dark:border-transparent dark:text-primary dark:bg-transparent"
           >
             <ClapperboardIcon className="w-8 h-8" />
             <span className="font-black tracking-wide">vignettte</span>
           </Link>
         </header>
-        <nav className="flex-1 overflow-auto grid items-start px-3 py-1">
+        <nav className="flex-1 overflow-auto grid items-start p-3">
           <NavLink href="/" highlight={/^\/$/} icon={<LibraryBigIcon />}>
             Library
           </NavLink>

@@ -47,6 +47,11 @@ const config: Config = {
         sans: ["var(--font-body)"],
         mono: ["var(--font-mono)"],
       },
+      borderRadius: {
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: "calc(var(--radius) - 4px)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

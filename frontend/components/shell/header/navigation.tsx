@@ -70,7 +70,10 @@ export function ShellHeaderNavigation({
       </NavigationMenu>
       {breadcrumb.length > 0 && (
         <>
-          <SlashIcon className="w-6 h-6 dark:text-muted" />
+          <SlashIcon
+            strokeWidth={1}
+            className="w-6 h-6 text-muted-foreground"
+          />
           <Breadcrumb>
             <BreadcrumbList className="capitalize">
               {breadcrumb.map((segment, index) => (

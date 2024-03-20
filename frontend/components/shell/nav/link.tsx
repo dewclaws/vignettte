@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 const navLinkVariants = cva(
-  "flex items-center gap-3 rounded-lg px-3 py-2 transition-all font-medium hover:text-muted-foreground",
+  "flex items-center gap-3 rounded-md px-3 py-2 transition-all font-medium hover:text-muted-foreground",
   {
     variants: {
       variant: {
