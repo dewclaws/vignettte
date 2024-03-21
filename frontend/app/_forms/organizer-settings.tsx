@@ -13,11 +13,15 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/components/ui/toast";
+import Link from "next/link";
 
 const FormSchema = z.object({
   rename_media: z.boolean().optional(),
+  name_format: z.string(),
+  folder_format: z.string(),
 });
 
 export function OrganizerSettingsForm() {
@@ -25,6 +29,8 @@ export function OrganizerSettingsForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       rename_media: true,
+      name_format: "{movie.title[clean,capitalize,dotted]}",
+      folder_format: "{movie.title[capitalize]} ({movie.year})",
     },
   });
 
@@ -41,36 +47,94 @@ export function OrganizerSettingsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
-        <div>
-          <h4 className="mb-4 text-2xl font-medium">Output</h4>
-          <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name="rename_media"
-              render={({ field }) => (
-                <FormItem className="flex items-center gap-6 px-2">
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-0.5">
-                    <FormLabel className="text-base">
-                      Rename media files
-                    </FormLabel>
-                    <FormDescription>
-                      Apply a consistent naming scheme (configured here) to all
-                      media files the organizer moves.
-                    </FormDescription>
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="max-w-[1200px] space-y-8"
+      >
+        <h4 className="mb-4 text-2xl font-medium">Formatting</h4>
+        <div className="space-y-6">
+          <FormField
+            control={form.control}
+            name="rename_media"
+            render={({ field }) => (
+              <FormItem className="flex flex-col justify-center px-2 gap-4 xl:gap-6 xl:grid xl:grid-cols-2 xl:items-center">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">
+                    Rename Media Files
+                  </FormLabel>
+                  <FormDescription>
+                    Format names of media files the organizer moves.
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="name_format"
+            render={({ field }) => (
+              <FormItem className="flex flex-col justify-center px-2 gap-4 xl:gap-6 xl:grid xl:grid-cols-2 xl:items-center">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">
+                    File Naming Format
+                  </FormLabel>
+                  <FormDescription>
+                    The format to use when naming media files.{" "}
+                    <Link
+                      href="/help/formatting"
+                      className="text-primary dark:text-indigo-400 underline hover:opacity-75"
+                    >
+                      Syntax?
+                    </Link>
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Input
+                    placeholder="{movie.title[clean,capitalize,dotted]}"
+                    className="font-mono"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="folder_format"
+            render={({ field }) => (
+              <FormItem className="flex flex-col justify-center px-2 gap-4 xl:gap-6 xl:grid xl:grid-cols-2 xl:items-center">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">
+                    Folder Naming Format
+                  </FormLabel>
+                  <FormDescription>
+                    How movie folders should be named.{" "}
+                    <Link
+                      href="/help/formatting"
+                      className="text-primary dark:text-indigo-400 underline hover:opacity-75"
+                    >
+                      Syntax?
+                    </Link>
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Input
+                    placeholder="{movie.title[capitalize]} ({movie.year})"
+                    className="font-mono"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Save</Button>
       </form>
     </Form>
   );

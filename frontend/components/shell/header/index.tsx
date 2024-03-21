@@ -11,7 +11,7 @@ export function ShellHeader({
   return (
     <header
       className={cc(
-        "flex items-center px-5 py-4 gap-2 border-b font-semibold bg-card border-border",
+        "flex items-center px-5 py-4 gap-2 border-b lg:border-s lg:rounded-bl-md font-semibold bg-card border-border",
         className,
       )}
     >

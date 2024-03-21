@@ -37,7 +37,7 @@ export default function RootLayout({
           "text-foreground bg-background",
         )}
       >
-        <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[300px_1fr]">
+        <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[250px_1fr]">
           <NavPane />
           <main className="flex flex-col">{children}</main>
           <Toaster />
