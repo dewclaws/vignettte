@@ -13,7 +13,7 @@ struct Movie<'a> {
     quality: &'a str,
 }
 
-pub struct Renamer<'a> {
+struct Renamer<'a> {
     movie: &'a Movie<'a>,
 }
 
@@ -23,7 +23,7 @@ impl<'a> Renamer<'a> {
     }
 
     // i'm a fucking genious
-    fn format_with(&self, template: &str) -> String {
+    pub fn format_with(&self, template: &str) -> String {
         let mut result = String::from(template);
         let re = Regex::new(r"\{(\w+)(?:\[(\w+(?:,\w+)*)\])?\}").unwrap();
         let fields: HashMap<String, Value> =
@@ -51,6 +51,8 @@ impl<'a> Renamer<'a> {
 
     fn parse_mods(mods: &[&str], value: &str) -> String {
         let mut output = String::from(value);
+        let cleaner = Regex::new(r"[,<>\\/;:'|~!?@$%^*-=]").unwrap();
+
         for &opt in mods {
             match opt {
                 "upper" => output = output.to_uppercase(),
@@ -63,10 +65,7 @@ impl<'a> Renamer<'a> {
                     output = output.replace("&", "and");
                     output = output.replace("/", "`");
                     output = output.replace("\\", "`");
-                    output = Regex::new(r"[,<>\\/;:'|~!?@$%^*-=]")
-                        .unwrap()
-                        .replace_all(&output, "")
-                        .to_string();
+                    output = cleaner.replace_all(&output, "").to_string();
                 }
                 _ => {}
             }
