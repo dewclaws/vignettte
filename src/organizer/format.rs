@@ -27,7 +27,7 @@ impl<'a> Renamer<'a> {
         let mut result = String::from(template);
         let re = Regex::new(r"\{(\w+)(?:\[(\w+(?:,\w+)*)\])?\}").unwrap();
         let fields: HashMap<String, Value> =
-            serde_json::from_value(serde_json::to_value(&self.movie).unwrap()).unwrap();
+            serde_json::from_value(serde_json::to_value(self.movie).unwrap()).unwrap();
 
         result = re
             .replace_all(&result, |caps: &regex::Captures| {
@@ -58,13 +58,13 @@ impl<'a> Renamer<'a> {
                 "upper" => output = output.to_uppercase(),
                 "lower" => output = output.to_lowercase(),
                 "title" => output = output.to_case(Case::Title),
-                "dot" => output = output.replace(" ", "."),
-                "dash" => output = output.replace(" ", "-"),
-                "under" => output = output.replace(" ", "_"),
+                "dot" => output = output.replace(' ', "."),
+                "dash" => output = output.replace(' ', "-"),
+                "under" => output = output.replace(' ', "_"),
                 "clean" => {
-                    output = output.replace("&", "and");
-                    output = output.replace("/", "`");
-                    output = output.replace("\\", "`");
+                    output = output.replace('&', "and");
+                    output = output.replace('/', "`");
+                    output = output.replace('\\', "`");
                     output = cleaner.replace_all(&output, "").to_string();
                 }
                 _ => {}
