@@ -101,7 +101,7 @@ mod test {
     fn test_invalid_syntax() {
         assert_eq!(RENAMER.format_with("{title.} year}"), "{title.} year}");
 
-        // this one has an invalid mod which the parser doesn't recognize
+        // this one has an invalid mod which the parser shouldn't recognize
         // it should still output the value regardless; the key was valid anyway
         assert_eq!(
             RENAMER.format_with("{title[invalid_mod]}"),
@@ -112,7 +112,7 @@ mod test {
     #[test]
     fn test_transformer_clean() {
         let renamer = Renamer::new(&Movie {
-            title: "Dune:: Part Two",
+            title: "Dune:: /Part Two\\",
             year: 2024,
             imdb_id: "tt15239678",
             tmdb_id: 693134,
@@ -121,7 +121,7 @@ mod test {
 
         assert_eq!(
             renamer.format_with("{title[clean]} ({year})"),
-            "Dune Part Two (2024)"
+            "Dune `Part Two` (2024)"
         )
     }
 
