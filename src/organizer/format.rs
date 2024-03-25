@@ -101,6 +101,13 @@ mod test {
     #[test]
     fn test_invalid_syntax() {
         assert_eq!(RENAMER.format_with("{title.} year}"), "{title.} year}");
+
+        // this one has an invalid mod which the parser doesn't recognize
+        // it should still output the value regardless; the key was valid anyway
+        assert_eq!(
+            RENAMER.format_with("{title[invalid_mod]}"),
+            "Anatomy of a Fall"
+        );
     }
 
     #[test]
