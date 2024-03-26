@@ -1,5 +1,4 @@
-import { ShellHeader } from "@/components/shell/header";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { NavigationBar } from "@/components/ui/navigation/navigation-bar";
 import {
   GlassesIcon,
   RssIcon,
@@ -19,63 +18,51 @@ export default function SettingsLayout({
   monitors: React.ReactNode;
   external_services: React.ReactNode;
 }>) {
-  const tabs: {
+  const sections: {
     name: string;
-    slot: React.ReactNode;
     icon?: React.ReactElement;
   }[] = [
     {
       name: "General",
       icon: <SlidersHorizontalIcon />,
-      slot: children,
     },
     {
       name: "Organizer",
       icon: <GlassesIcon />,
-      slot: organizer,
     },
     {
       name: "Monitors",
       icon: <RssIcon />,
-      slot: monitors,
     },
     {
       name: "External Services",
       icon: <UnplugIcon />,
-      slot: external_services,
     },
   ];
 
   return (
     <>
-      <Tabs defaultValue={tabs[0].name.toLowerCase()}>
-        <ShellHeader className="h-16 gap-4">
-          Settings
-          <TabsList>
-            {tabs.map((tab) => (
-              <TabsTrigger
-                key={tab.name}
-                value={tab.name.toLowerCase()}
-                className="flex items-center gap-1"
-              >
-                {tab.icon &&
-                  React.cloneElement(tab.icon, { className: "w-4 h-4" })}
-                {tab.name}
-              </TabsTrigger>
+      <NavigationBar />
+      <div className="grid lg:grid-cols-[250px_1fr] p-6 gap-6">
+        <div className="space-y-4">
+          <h4 className="text-2xl font-bold">Settings</h4>
+          <ul className="space-y-2">
+            {sections.map((section) => (
+              <li key={section.name}>
+                <a
+                  href={`/${section.name.toLowerCase()}`}
+                  className="flex items-center space-x-2"
+                >
+                  {section.icon &&
+                    React.cloneElement(section.icon, { className: "w-4 h-4" })}
+                  <span>{section.name}</span>
+                </a>
+              </li>
             ))}
-          </TabsList>
-        </ShellHeader>
-
-        {tabs.map((tab) => (
-          <TabsContent
-            key={tab.name}
-            value={tab.name.toLowerCase()}
-            className="p-4"
-          >
-            {tab.slot}
-          </TabsContent>
-        ))}
-      </Tabs>
+          </ul>
+        </div>
+        <main>{children}</main>
+      </div>
     </>
   );
 }
