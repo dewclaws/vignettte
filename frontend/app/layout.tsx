@@ -1,4 +1,4 @@
-import NavPane from "@/components/shell/nav/pane";
+import Sidebar from "@/components/ui/navigation/sidebar";
 import { Toaster } from "@/components/ui/toast";
 import { cc } from "@/lib/utilities";
 import type { Metadata } from "next";
@@ -37,8 +37,8 @@ export default function RootLayout({
           "text-foreground bg-background",
         )}
       >
-        <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[250px_1fr]">
-          <NavPane />
+        <div className="min-h-screen w-full overflow-hidden lg:grid lg:grid-cols-[250px_1fr] gap-4">
+          <Sidebar />
           <main className="flex flex-col">{children}</main>
           <Toaster />
         </div>

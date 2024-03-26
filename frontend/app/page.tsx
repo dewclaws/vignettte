@@ -1,5 +1,5 @@
-import { ShellHeader } from "@/components/shell/header";
+import { NavigationBar } from "@/components/ui/navigation/navigation-bar";
 
 export default function Home() {
-  return <ShellHeader>Media</ShellHeader>;
+  return <NavigationBar>Library</NavigationBar>;
 }
