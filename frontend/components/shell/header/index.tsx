@@ -20,4 +20,4 @@ export function ShellHeader({
   );
 }
 
-export { ShellHeaderNavigation } from "./navigation";
+export { ShellHeaderNavigation, type MenuItem } from "./navigation";

@@ -26,12 +26,15 @@ export type MenuItem = {
   href: string;
   icon?: React.ReactElement;
   description: string;
+  children?: MenuItem[];
 };
 
 export function ShellHeaderNavigation({
   menuItems,
+  title,
 }: Readonly<{
   menuItems: MenuItem[];
+  title: string;
 }>) {
   const path = usePathname()
     .replace("/preferences", "")
@@ -49,7 +52,7 @@ export function ShellHeaderNavigation({
             <NavigationMenuTrigger
               className={cc(path.length > 0 && "font-normal")}
             >
-              Preferences
+              {title}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-2 p-2 md:w-[400px] lg:w-[500px] lg:grid-cols-2">

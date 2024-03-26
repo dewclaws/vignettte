@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/components/ui/toast";
+import { cc } from "@/lib/utilities";
 import Link from "next/link";
 
 const FormSchema = z.object({
@@ -76,11 +77,17 @@ export function OrganizerSettingsForm() {
             )}
           />
           <FormField
+            disabled={!form.watch("rename_media")}
             control={form.control}
             name="name_format"
             render={({ field }) => (
               <FormItem className="flex flex-col justify-center px-2 gap-4 xl:gap-6 xl:grid xl:grid-cols-2 xl:items-center">
-                <div className="space-y-0.5">
+                <div
+                  className={cc(
+                    "space-y-0.5 transition-all duration-200",
+                    field.disabled && "grayscale opacity-50",
+                  )}
+                >
                   <FormLabel className="text-base">
                     File Naming Format
                   </FormLabel>
@@ -90,7 +97,7 @@ export function OrganizerSettingsForm() {
                       href="/help/formatting"
                       className="text-primary dark:text-indigo-400 underline hover:opacity-75"
                     >
-                      Syntax?
+                      Help?
                     </Link>
                   </FormDescription>
                 </div>
@@ -105,11 +112,17 @@ export function OrganizerSettingsForm() {
             )}
           />
           <FormField
+            disabled={!form.watch("rename_media")}
             control={form.control}
             name="folder_format"
             render={({ field }) => (
               <FormItem className="flex flex-col justify-center px-2 gap-4 xl:gap-6 xl:grid xl:grid-cols-2 xl:items-center">
-                <div className="space-y-0.5">
+                <div
+                  className={cc(
+                    "space-y-0.5 transition-all duration-200",
+                    field.disabled && "grayscale opacity-50",
+                  )}
+                >
                   <FormLabel className="text-base">
                     Folder Naming Format
                   </FormLabel>
@@ -119,7 +132,7 @@ export function OrganizerSettingsForm() {
                       href="/help/formatting"
                       className="text-primary dark:text-indigo-400 underline hover:opacity-75"
                     >
-                      Syntax?
+                      Help?
                     </Link>
                   </FormDescription>
                 </div>

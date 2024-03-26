@@ -20,7 +20,7 @@ const navLinkVariants = cva(
 );
 
 export interface NavLinkProps extends LinkProps {
-  children: string;
+  children?: string;
   highlight?: RegExp;
   className?: string;
   icon?: React.ReactElement;
@@ -47,8 +47,8 @@ const NavLink = ({
 
   return (
     <Link className={cc(navLinkVariants({ variant }), className)} {...props}>
-      {icon && React.cloneElement(icon, { className: "w-6 h-6" })}
-      {children}
+      {icon && React.cloneElement(icon, { className: "w-6 h-5" })}
+      {children && children}
     </Link>
   );
 };

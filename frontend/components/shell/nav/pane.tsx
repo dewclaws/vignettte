@@ -1,6 +1,11 @@
 "use client";
 
-import { BoltIcon, ClapperboardIcon, LibraryBigIcon } from "lucide-react";
+import {
+  BoltIcon,
+  BookOpenIcon,
+  ClapperboardIcon,
+  LibraryBigIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { NavLink } from "./link";
 
@@ -11,7 +16,7 @@ export default function NavPane() {
         <header className="flex items-center pe-3">
           <Link
             href="/"
-            className="flex w-full items-center rounded-br-md px-5 py-3 gap-3 bg-primary border border-primary text-white dark:border-primary/25 dark:bg-primary/50"
+            className="h-16 flex w-full items-center rounded-br-md px-5 py-3 gap-3 bg-primary border border-primary text-white dark:border-primary/25 dark:bg-primary/50"
           >
             <ClapperboardIcon className="w-8 h-8" />
             <span className="font-black tracking-wide">vignettte</span>
@@ -23,8 +28,15 @@ export default function NavPane() {
           </NavLink>
         </nav>
         <footer className="grid items-center p-3 ps-0">
-          <NavLink href="/preferences" icon={<BoltIcon />}>
-            Preferences
+          <NavLink
+            href="/settings"
+            highlight={/^\/settings/}
+            icon={<BoltIcon />}
+          >
+            Settings
+          </NavLink>
+          <NavLink href="/help" icon={<BookOpenIcon />}>
+            Help
           </NavLink>
         </footer>
       </div>
