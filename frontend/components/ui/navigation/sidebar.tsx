@@ -30,7 +30,7 @@ export default function Sidebar({ mobile = false }: { mobile?: boolean }) {
           </div>
           <div className="grid items-center">
             <NavLink
-              href="/settings"
+              href="/settings/general"
               highlight={/^\/settings/}
               icon={<BoltIcon />}
             >

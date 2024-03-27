@@ -52,7 +52,7 @@ export function OrganizerSettingsForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="max-w-[1200px] space-y-8"
       >
-        <h4 className="mb-4 text-2xl font-medium">Formatting</h4>
+        <h4 className="mb-4 text-2xl font-medium">Organizer</h4>
         <div className="space-y-6">
           <FormField
             control={form.control}

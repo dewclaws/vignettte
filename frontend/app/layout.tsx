@@ -37,7 +37,7 @@ export default function RootLayout({
           "text-foreground bg-background",
         )}
       >
-        <div className="max-h-screen w-full overflow-hidden lg:grid lg:grid-cols-[250px_1fr] gap-4">
+        <div className="h-full w-full overflow-hidden lg:grid lg:grid-cols-[250px_1fr] gap-4">
           <Sidebar />
           <main className="flex flex-col">{children}</main>
           <Toaster />
