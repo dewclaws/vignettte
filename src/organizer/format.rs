@@ -13,10 +13,12 @@ struct Movie<'a> {
     quality: &'a str,
 }
 
+#[allow(dead_code)]
 struct Renamer<'a> {
     movie: &'a Movie<'a>,
 }
 
+#[allow(dead_code)]
 impl<'a> Renamer<'a> {
     pub fn new(movie: &'a Movie) -> Self {
         Renamer { movie }

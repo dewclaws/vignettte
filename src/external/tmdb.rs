@@ -1,12 +1,12 @@
 use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
-use std::io;
 
-use reqwest::Client;
+use reqwest::{Client, Error};
 
 static API_KEY: &str = "619fef183328c4154553ec9f968ac7f6"; // it's ok i promise
 static BASE_URL: &str = "https://api.themoviedb.org/3";
 
+#[derive(Clone)]
 pub struct TMDbClient {
     http_client: Client,
     base_url: String,
@@ -35,7 +35,7 @@ impl TMDbClient {
         }
     }
 
-    pub async fn fetch_movie_details(&self, tmdb_id: i32) -> Result<TMDbMovie, io::Error> {
+    pub async fn fetch_movie_details(&self, tmdb_id: i32) -> Result<TMDbMovie, Error> {
         let response = self
             .http_client
             .get(&format!(
@@ -48,11 +48,8 @@ impl TMDbClient {
             .error_for_status();
 
         match response {
-            Ok(res) => res
-                .json()
-                .await
-                .map_err(|err| io::Error::new(io::ErrorKind::InvalidData, err)),
-            Err(err) => Err(io::Error::new(io::ErrorKind::NotFound, err)),
+            Ok(res) => res.json().await,
+            Err(err) => Err(err),
         }
     }
 }
