@@ -11,8 +11,8 @@ pub fn config(cfg: &mut actix_web::web::ServiceConfig) {
     cfg.route("movies", web::post().to(add_movie));
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct NewMovie {
+#[derive(Serialize, Deserialize, Clone)]
+pub struct AddMovieData {
     pub tmdb_id: i32,
 }
 
@@ -44,11 +44,11 @@ impl actix_web::ResponseError for AddMovieError {
 }
 
 pub async fn add_movie(
-    body: web::Json<NewMovie>,
+    new_movie: web::Form<AddMovieData>,
     tmdb: web::Data<TMDbClient>,
     db: web::Data<PgPool>,
 ) -> Result<HttpResponse, AddMovieError> {
-    match tmdb.fetch_movie_details(body.tmdb_id).await {
+    match tmdb.fetch_movie_details(new_movie.tmdb_id).await {
         // Currently this only handles TMDb as a source
         // Would like to refactor for more in future
         Ok(response) => {
@@ -57,7 +57,7 @@ pub async fn add_movie(
                 r#"INSERT INTO movies (imdb_id, tmdb_id, title, original_language, original_title, synopsis, release_date, poster_path, backdrop_path)
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *"#,
                 response.imdb_id,
-                body.tmdb_id,
+                response.id,
                 response.title,
                 response.original_language,
                 response.original_title,
@@ -72,9 +72,9 @@ pub async fn add_movie(
 
             Ok(HttpResponse::Ok().json(movie))
         }
-        Err(error) => match error.status() {
+        Err(err) => match err.status() {
             Some(reqwest::StatusCode::NOT_FOUND) => Err(AddMovieError::NotFoundError),
-            _ => Err(AddMovieError::ExternalError(error)),
+            _ => Err(AddMovieError::ExternalError(err)),
         },
     }
 }
