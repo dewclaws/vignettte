@@ -1,6 +1,7 @@
 import { cc } from "@/lib/util";
 import { FilmSlate } from "@phosphor-icons/react";
 import { cva, type VariantProps } from "class-variance-authority";
+import clsx from "clsx";
 
 const branding = cva(
   "flex items-center gap-md font-mono tracking-tighter font-bold select-none",
@@ -31,7 +32,9 @@ export default function NavBranding({ className, context }: BrandingProps) {
   return (
     <div className={cc(branding({ context }), className)}>
       <FilmSlate className={iconSize(context)} />
-      <span className="hidden md:inline">vignettte</span>
+      <span className={clsx(context === "navbar" && "hidden md:inline")}>
+        vignettte
+      </span>
     </div>
   );
 }
