@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-base-background: 240deg 5% 96%;
+    --color-base-foreground: 240deg 6% 10%;
+    --color-content-background: 0deg 0% 100%;
+    --color-header-background: 240deg 6% 10%;
+    --color-header-foreground: 240deg 5% 96%;
+    --color-header-active: 234deg 89% 74%;
+    --color-primary: 243deg 75% 59%;
+    --color-primary-background: 234deg 89% 74%;
+    --color-primary-foreground: 244deg 47% 20%;
+    --color-warning-background: 31deg 97% 72%;
+    --color-warning-foreground: 15deg 79% 34%;
+    --color-success-background: 82deg 85% 67%;
+    --color-success-foreground: 88deg 61% 20%;
+    --color-info-background: 199deg 95% 74%;
+    --color-info-foreground: 202deg 80% 24%;
+    --color-input-background: 0deg 0% 100%;
+    --color-input-border: 220deg 13% 91%;
+    --color-muted-background: 240deg 7% 65%;
+    --color-muted-foreground: 240deg 6% 35%;
+  }
+
+  [data-theme="dark"] {
+    --color-base-background: 240deg 6% 5%;
+    --color-base-foreground: 240deg 6% 90%;
+    --color-header-background: 240deg 8% 15%;
+    --color-header-active: 234deg 89% 74%;
+    --color-content-background: 240deg 6% 10%;
+    --color-primary-foreground: 234deg 89% 74%;
+    --color-primary-background: 244deg 47% 20%;
+    --color-warning-foreground: 31deg 97% 72%;
+    --color-warning-background: 15deg 35% 28%;
+    --color-success-foreground: 156deg 72% 67%;
+    --color-success-background: 164deg 86% 16%;
+    --color-info-foreground: 199deg 95% 74%;
+    --color-info-background: 202deg 80% 24%;
+    --color-input-background: 0deg 0% 0%;
+    --color-input-border: 220deg 13% 12%;
+    --color-muted-background: 240deg 7% 20%;
+    --color-muted-foreground: 240deg 6% 70%;
+  }
+
+  body {
+    background-color: theme("colors.black");
+    color: theme("colors.body.foreground");
+    font-family: theme("fontFamily.sans");
+
+    ::selection {
+      @apply bg-primary-foreground text-primary-background;
+    }
+  }
+}
+
+@layer utilities {
+  .type {
+    &-list {
+      &-heading {
+        @apply text-xl font-semibold leading-6;
+      }
+
+      &-subheading {
+        @apply text-sm text-muted-background font-normal;
+      }
+    }
+
+    &-nav {
+      &-link-horizontal {
+        @apply text-base font-normal;
+      }
+
+      &-link-vertical {
+        @apply text-xs font-bold;
+      }
+    }
+
+    &-drawer {
+      &-title {
+        @apply text-xl font-semibold leading-none;
+      }
+
+      &-description {
+        @apply text-sm text-muted-foreground/75;
+      }
+    }
+  }
+}
