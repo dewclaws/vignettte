@@ -1,14 +1,16 @@
+"use server";
+
 import { getServerSecret } from "@/lib/server/env";
 import { SESSION_TOKEN_COOKIE } from ".";
 import { PlexAuthConfig } from "./types";
 
 import Bowser from "bowser";
 import { jwtVerify } from "jose";
-import { NextRequest } from "next/server";
+import { cookies } from "next/headers";
 import { v4 as uuidv4 } from "uuid";
 
-export async function isAuthenticated(request: NextRequest): Promise<boolean> {
-  const claim = request.cookies.get(SESSION_TOKEN_COOKIE)?.value;
+export async function isAuthenticated(): Promise<boolean> {
+  const claim = cookies().get(SESSION_TOKEN_COOKIE)?.value;
   if (!claim) {
     return false;
   }
@@ -33,7 +35,7 @@ export async function isAuthenticated(request: NextRequest): Promise<boolean> {
  * @param userAgent user agent of the client's browser, for constructing headers
  * @returns `PlexAuthConfig` containing headers and client ID
  */
-export function authInit(userAgent: string): PlexAuthConfig {
+export async function authInit(userAgent: string): Promise<PlexAuthConfig> {
   const browser = Bowser.getParser(userAgent);
   const clientId = uuidv4();
 

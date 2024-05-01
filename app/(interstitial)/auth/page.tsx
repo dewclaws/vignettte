@@ -2,13 +2,15 @@
 
 import { NavBranding } from "@/components/nav";
 import { Button } from "@/components/ui/Button";
-import { constructAuthUrl } from "@/lib/server/auth";
+import { constructAuthUrl, isAuthenticated } from "@/lib/server/auth";
 
 import { CircleNotch, SignIn } from "@phosphor-icons/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SignInPage() {
   const [authenticating, setAuthenticating] = useState(false);
+  const router = useRouter();
 
   async function authenticate() {
     setAuthenticating(true);
@@ -20,9 +22,14 @@ export default function SignInPage() {
         `${window.location.protocol}//${window.location.host}`
       ).then((url) => (popup.location = url));
 
-      let timer = setInterval(() => {
+      let timer = setInterval(async () => {
         if (popup.closed) {
           clearInterval(timer);
+
+          if (await isAuthenticated()) {
+            router.push("/library");
+          }
+
           setAuthenticating(false);
         }
       }, 1000);

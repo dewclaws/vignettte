@@ -31,7 +31,7 @@ export async function constructAuthUrl(
   userAgent: string,
   hostname: string
 ): Promise<string> {
-  const authConfig = authInit(userAgent);
+  const authConfig = await authInit(userAgent);
   const pin = await getPin(authConfig);
   const params = new URLSearchParams({
     clientID: authConfig.clientId,
