@@ -28,7 +28,7 @@ export default function SignInCallback() {
       createSession(clientId).then((result) => {
         setAuthState(result);
 
-        if (authState.status === PlexAuthStatus.SUCCESS) {
+        if (result.status === PlexAuthStatus.SUCCESS) {
           setTimeout(() => {
             window.close();
           }, 1500);
