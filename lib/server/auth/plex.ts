@@ -27,13 +27,16 @@ async function getPin({ headers }: PlexAuthConfig): Promise<PlexAuthPin> {
   });
 }
 
-export async function constructAuthUrl(userAgent: string): Promise<string> {
+export async function constructAuthUrl(
+  userAgent: string,
+  hostname: string
+): Promise<string> {
   const authConfig = authInit(userAgent);
   const pin = await getPin(authConfig);
   const params = new URLSearchParams({
     clientID: authConfig.clientId,
     code: pin.code,
-    forwardUrl: `http://localhost:3000/auth/callback?cid=${authConfig.clientId}`,
+    forwardUrl: `${hostname}/auth/callback?cid=${authConfig.clientId}`,
     "context[device][product]": authConfig.headers["X-Plex-Product"],
     "context[device][version]": authConfig.headers["X-Plex-Version"],
     "context[device][platform]": authConfig.headers["X-Plex-Platform"],
@@ -80,6 +83,8 @@ export async function createSession(
       path: "/",
       expires: DateTime.now().plus({ week: 1 }).toJSDate(),
     });
+
+    cookies().delete(PLEX_PIN_COOKIE);
   } catch {
     return {
       status: PlexAuthStatus.ERROR,

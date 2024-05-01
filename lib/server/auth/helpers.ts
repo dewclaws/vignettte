@@ -1,10 +1,32 @@
+import { getServerSecret } from "@/lib/server/env";
+import { SESSION_TOKEN_COOKIE } from ".";
 import { PlexAuthConfig } from "./types";
 
 import Bowser from "bowser";
+import { jwtVerify } from "jose";
 import { NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
-export function isAuthenticated(request: NextRequest) {}
+export async function isAuthenticated(request: NextRequest): Promise<boolean> {
+  const claim = request.cookies.get(SESSION_TOKEN_COOKIE)?.value;
+  if (!claim) {
+    return false;
+  }
+
+  try {
+    const { payload } = await jwtVerify(
+      claim,
+      new TextEncoder().encode(getServerSecret())
+    );
+
+    if (payload.sub) return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+
+  return false;
+}
 
 /**
  * Constructs the header list and a fresh client ID for use in a Plex OAuth handshake

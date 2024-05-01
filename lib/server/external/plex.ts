@@ -1,6 +1,8 @@
 import { PlexAuthPin, PlexAuthResponse } from "@/lib/server/auth";
 import { prisma } from "@/lib/server/db";
+import { getServerSecret } from "@/lib/server/env";
 import ExternalAPI from "@/lib/server/external";
+
 import { SignJWT } from "jose";
 
 export class PlexService extends ExternalAPI {
@@ -71,7 +73,8 @@ export class PlexService extends ExternalAPI {
     })
       .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
-      .sign(new TextEncoder().encode(process.env.SECRET ?? "secret"));
+      .setExpirationTime("1 week")
+      .sign(new TextEncoder().encode(getServerSecret()));
   }
 
   public async getUser(): Promise<PlexUser> {
