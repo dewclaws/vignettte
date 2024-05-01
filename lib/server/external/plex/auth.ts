@@ -52,7 +52,7 @@ export async function constructAuthUrl(userAgent: string): Promise<string> {
   const params = new URLSearchParams({
     clientID: authConfig.clientId,
     code: pin.code,
-    forwardUrl: `http://localhost:3000/signin/callback?cid=${authConfig.clientId}`,
+    forwardUrl: `http://localhost:3000/auth/callback?cid=${authConfig.clientId}`,
     "context[device][product]": authConfig.headers["X-Plex-Product"],
     "context[device][version]": authConfig.headers["X-Plex-Version"],
     "context[device][platform]": authConfig.headers["X-Plex-Platform"],
