@@ -1,33 +1,14 @@
 "use server";
 
-import { getServerSecret } from "@/lib/server/env";
 import { SESSION_TOKEN_COOKIE } from ".";
 import { PlexAuthConfig } from "./types";
 
 import Bowser from "bowser";
-import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { v4 as uuidv4 } from "uuid";
 
 export async function isAuthenticated(): Promise<boolean> {
-  const claim = cookies().get(SESSION_TOKEN_COOKIE)?.value;
-  if (!claim) {
-    return false;
-  }
-
-  try {
-    const { payload } = await jwtVerify(
-      claim,
-      new TextEncoder().encode(getServerSecret())
-    );
-
-    if (payload.sub) return true;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-
-  return false;
+  return cookies().has(SESSION_TOKEN_COOKIE);
 }
 
 /**
