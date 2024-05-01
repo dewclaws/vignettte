@@ -3,7 +3,6 @@
 import { NavBranding } from "@/components/nav";
 import { Button } from "@/components/ui/Button";
 import { constructAuthUrl } from "@/lib/server/auth";
-import { openPopup } from "@/lib/util/popup";
 
 import { CircleNotch, SignIn } from "@phosphor-icons/react";
 import { useState } from "react";
@@ -14,10 +13,13 @@ export default function SignInPage() {
   async function authenticate() {
     setAuthenticating(true);
 
-    const url = await constructAuthUrl(window.navigator.userAgent);
-    const popup = openPopup(url, "Authenticate with Plex", 600, 700);
-
+    const popup = window.open();
     if (popup) {
+      constructAuthUrl(
+        window.navigator.userAgent,
+        `${window.location.protocol}//${window.location.host}`
+      ).then((url) => (popup.location = url));
+
       let timer = setInterval(() => {
         if (popup.closed) {
           clearInterval(timer);
