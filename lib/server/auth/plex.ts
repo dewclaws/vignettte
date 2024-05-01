@@ -1,9 +1,7 @@
 "use server";
 
-import Bowser from "bowser";
-import { DateTime } from "luxon";
-import { cookies } from "next/headers";
-import { v4 as uuidv4 } from "uuid";
+import ExternalAPI from "@/lib/server/external";
+import { PlexService } from "@/lib/server/external/plex";
 import {
   PLEX_PIN_COOKIE,
   PlexAuthConfig,
@@ -11,29 +9,12 @@ import {
   PlexAuthPin,
   PlexAuthState,
   PlexAuthStatus,
-  PlexService,
+  SESSION_TOKEN_COOKIE,
 } from ".";
-import ExternalAPI from "..";
+import { authInit } from "./helpers";
 
-async function authInit(userAgent: string): Promise<PlexAuthConfig> {
-  const browser = Bowser.getParser(userAgent);
-  const clientId = uuidv4();
-
-  return {
-    headers: {
-      "X-Plex-Product": "vignettte",
-      "X-Plex-Version": "Plex OAuth",
-      "X-Plex-Client-Identifier": clientId,
-      "X-Plex-Model": "Plex OAuth",
-      "X-Plex-Platform": browser.getBrowserName(),
-      "X-Plex-Platform-Version": browser.getBrowserVersion(),
-      "X-Plex-Device": browser.getOSName(),
-      "X-Plex-Device-Name": `${browser.getBrowserName()} (vignettte)`,
-      "X-Plex-Language": "en",
-    },
-    clientId,
-  };
-}
+import { DateTime } from "luxon";
+import { cookies } from "next/headers";
 
 async function getPin({ headers }: PlexAuthConfig): Promise<PlexAuthPin> {
   const client = new ExternalAPI("https://plex.tv/api/v2", {
@@ -47,7 +28,7 @@ async function getPin({ headers }: PlexAuthConfig): Promise<PlexAuthPin> {
 }
 
 export async function constructAuthUrl(userAgent: string): Promise<string> {
-  const authConfig = await authInit(userAgent);
+  const authConfig = authInit(userAgent);
   const pin = await getPin(authConfig);
   const params = new URLSearchParams({
     clientID: authConfig.clientId,
@@ -92,7 +73,7 @@ export async function createSession(
     );
 
     cookies().set({
-      name: "session-claim",
+      name: SESSION_TOKEN_COOKIE,
       value: await service.getNewSession(),
       httpOnly: true,
       sameSite: true,

@@ -5,8 +5,9 @@ import {
   PlexAuthError,
   PlexAuthState,
   PlexAuthStatus,
-} from "@/lib/server/external/plex";
-import { createSession } from "@/lib/server/external/plex/auth";
+  createSession,
+} from "@/lib/server/auth";
+
 import { LinkBreak, Plugs, PlugsConnected, X } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";

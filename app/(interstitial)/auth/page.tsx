@@ -2,8 +2,9 @@
 
 import { NavBranding } from "@/components/nav";
 import { Button } from "@/components/ui/Button";
-import { constructAuthUrl } from "@/lib/server/external/plex/auth";
+import { constructAuthUrl } from "@/lib/server/auth";
 import { openPopup } from "@/lib/util/popup";
+
 import { CircleNotch, SignIn } from "@phosphor-icons/react";
 import { useState } from "react";
 
