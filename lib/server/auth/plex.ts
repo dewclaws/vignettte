@@ -16,6 +16,11 @@ import { authInit } from "./helpers";
 import { DateTime } from "luxon";
 import { cookies } from "next/headers";
 
+/**
+ * Fetches a new Pin from `https://plex.tv` for initiating an OAuth handshake
+ * @param authConfig `PlexAuthConfig` to extract headers from
+ * @returns pin returned from Plex API
+ */
 async function getPin({ headers }: PlexAuthConfig): Promise<PlexAuthPin> {
   const client = new ExternalAPI("https://plex.tv/api/v2", {
     baseHeaders: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -27,6 +32,12 @@ async function getPin({ headers }: PlexAuthConfig): Promise<PlexAuthPin> {
   });
 }
 
+/**
+ * Constructs an auth URL to sign in with Plex
+ * @param userAgent user agent of the client
+ * @param hostname hostname of the instance to build the callback URL
+ * @returns constructed Plex sign-in URL
+ */
 export async function constructAuthUrl(
   userAgent: string,
   hostname: string
@@ -58,6 +69,13 @@ export async function constructAuthUrl(
   return `https://app.plex.tv/auth#?${params}`;
 }
 
+/**
+ * Creates a session in the database and sets a session token cookie
+ * on the client
+ *
+ * @param clientId the client ID created earlier in the process
+ * @returns the final status of session creation
+ */
 export async function createSession(
   clientId: string | null
 ): Promise<PlexAuthState> {

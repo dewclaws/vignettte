@@ -5,9 +5,16 @@ import ExternalAPI from "@/lib/server/external";
 
 import { SignJWT } from "jose";
 
+/**
+ * Handles most communication with the Plex API, aside from authentication
+ */
 export class PlexService extends ExternalAPI {
   private authToken: string;
 
+  /**
+   * Constructs a new PlexService instance with the given Plex auth token
+   * @param authToken an OAuth token that's been associated with a user's session
+   */
   constructor(authToken: string) {
     super("https://plex.tv", {
       baseHeaders: {
@@ -19,6 +26,14 @@ export class PlexService extends ExternalAPI {
     this.authToken = authToken;
   }
 
+  /**
+   * Constructs a new instance of PlexService by fetching the Plex OAuth token
+   * associated with a given Pin and client ID
+   *
+   * @param pin a Plex OAuth Pin, obtained earlier in the authentication process
+   * @param clientId a client ID, obtained earlier in the authentication process
+   * @returns a new instance of PlexService, bound to an OAuth token
+   */
   public static async fromAuthResponse(
     pin: PlexAuthPin,
     clientId: string
@@ -42,6 +57,13 @@ export class PlexService extends ExternalAPI {
     }
   }
 
+  /**
+   * Creates a new session in the database (and a new vignettte user, if one
+   * doesn't exist) and signs a session token to be assigned to the user's browser
+   *
+   * @returns the signed JWT containing the vignettte user ID associated with this
+   * PlexService
+   */
   public async getNewSession(): Promise<string> {
     const plexUser = await this.getUser();
 
@@ -77,6 +99,12 @@ export class PlexService extends ExternalAPI {
       .sign(new TextEncoder().encode(getServerSecret()));
   }
 
+  /**
+   * Fetches Plex account details for the auth token associated with this
+   * PlexService instance
+   *
+   * @returns the Plex user details associated with this PlexService
+   */
   public async getUser(): Promise<PlexUser> {
     const account = await this.request<PlexAccountResponse>(
       "/users/account.json"
