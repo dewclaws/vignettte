@@ -1,3 +1,4 @@
+mod auth;
 mod handlers;
 
 use handlers::ping;
