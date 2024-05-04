@@ -1,7 +1,7 @@
 use axum::{response::IntoResponse, Json};
 use serde_json::json;
 
-pub async fn ping() -> impl IntoResponse {
+pub async fn ping_handler() -> impl IntoResponse {
     Json(json!({
         "status": "success",
         "message": "PONG",
