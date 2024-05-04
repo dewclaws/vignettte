@@ -1,12 +1,11 @@
-mod database;
+use vignettte::{create_pg_pool, create_redis_pool, create_router};
 
 use anyhow::Result;
-use database::create_pool;
-use vignettte::create_router;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let pool = create_pool().await?;
+    let pg_pool = create_pg_pool().await?;
+    let redis_pool = create_redis_pool().await?;
     let app = create_router(pool);
 
     println!("vignettte is running ...");
